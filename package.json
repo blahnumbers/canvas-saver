@@ -1,8 +1,8 @@
 {
-  "name": "playerpreview-fetcher",
+  "name": "canvas-saver",
   "version": "1.0.0",
-  "description": "Fetch a threejs generated canvas and save it as an image",
-  "main": "index.js",
+  "description": "Save an image from html canvas with puppeteer",
+  "main": "canvas-saver.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
