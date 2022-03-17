@@ -12,14 +12,14 @@ if (typeof args[0] === 'undefined') {
 	const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security', '--enable-features=NetworkService'] });
 	const page = await browser.newPage();
 	await page.goto('http://localhost/playerpreview.php?u=' + args[0]);
-	//await page.screenshot({ path: 'example.png' });
+	
+	await page.waitForFunction('window.status === "ready"');
 
-	await new Promise(resolve => setTimeout(resolve, 1000));
 	const imageUrl = await page.evaluate(() => {
 		return document.querySelector('canvas').toDataURL();
 	});
 	const userid = await page.evaluate(() => {
-		return document.querySelector('#userid');
+		return document.querySelector('#userid').textContent;
 	});
 	const image = Buffer.from(imageUrl.split(',').pop(), 'base64');
 	fs.writeFileSync(config.path + userid + ".png", image);
